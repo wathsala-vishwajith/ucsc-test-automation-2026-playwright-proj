@@ -1,10 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { test, expect,request, APIRequestContext } from '@playwright/test';
 
 test.describe("Sample API Test", () => {
   let token: string;
+  let requestContext: APIRequestContext;
 
-  test.beforeEach(async ({ request }) => {
-    const loginResponse = await request.post(`${process.env.HOST}/api/auth/login`, {
+  // Initialize the request context before all tests
+  test.beforeAll(async () => {
+    requestContext = await request.newContext({baseURL: process.env.HOST});
+  });
+
+  test.beforeEach(async () => {
+    const loginResponse = await requestContext.post(`${process.env.HOST}/api/auth/login`, {
       data: {
         identifier: process.env.USERNAME,
         password: process.env.PASSWORD,
@@ -17,8 +23,8 @@ test.describe("Sample API Test", () => {
     token = loginBody.token;
   });
 
-  test("Get User Profile API Test", async ({ request }) => {
-    const response = await request.get(`${process.env.HOST}/api/admin/profile`, {
+  test("Get User Profile API Test", async () => {
+    const response = await requestContext.get(`${process.env.HOST}/api/admin/profile`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
