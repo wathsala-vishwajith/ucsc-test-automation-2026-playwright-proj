@@ -6,7 +6,6 @@ test.describe("User Details API", () => {
     const response = await apiClient.put(`${process.env.HOST}/api/admin/users/test001`, userData.update);
     expect(response.status()).toBe(200);
     const responseBody = await response.json();
-    console.log("Response Body:", responseBody);
     expect(responseBody.message).toBe('User updated');
   });
 });
