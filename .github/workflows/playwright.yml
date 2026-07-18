@@ -19,6 +19,8 @@ jobs:
       run: pnpm exec playwright install --with-deps
     - name: Run Playwright tests
       env:
+        CI: true
+        GITHUB_ACTIONS: true
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}

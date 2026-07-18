@@ -3,9 +3,10 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 // Load environment variables from .env file
-if(!process.env.HOST || !process.env.USERNAME || !process.env.PASSWORD) {
-  dotenv.config({ path: new URL('.env', import.meta.url).pathname });
-} 
+// Only load .env in LOCAL development, NEVER in CI
+if (process.env.CI !== 'true' && !process.env.GITHUB_ACTIONS) {
+  dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+}
 
 /**
  * Read environment variables from file.
