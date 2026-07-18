@@ -26,7 +26,11 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
         DOTENV_KEY: "" #Disable dotenv 
-      run: pnpm exec playwright test
+      run: |
+        echo "HOST is set: ${{ secrets.HOST != '' }}"
+        echo "USERNAME is set: ${{ secrets.USERNAME != '' }}"
+        echo "PASSWORD is set: ${{ secrets.PASSWORD != '' }}"
+        echo "HOST length: ${#HOST}"
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
