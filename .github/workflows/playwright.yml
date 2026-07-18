@@ -32,7 +32,8 @@ jobs:
         echo "PASSWORD is set: ${{ secrets.PASSWORD != '' }}"
         echo "HOST length: ${#HOST}"
         echo "First 8 chars: ${HOST}"
-        echo "Last char: ${HOST: -1}"
+        echo "Last char: ${HOST: 3:8}"
+        echo "First 8 chars: ${HOST:2:8}"
         pnpm exec playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
