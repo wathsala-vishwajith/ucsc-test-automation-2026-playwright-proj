@@ -31,6 +31,9 @@ jobs:
         echo "USERNAME is set: ${{ secrets.USERNAME != '' }}"
         echo "PASSWORD is set: ${{ secrets.PASSWORD != '' }}"
         echo "HOST length: ${#HOST}"
+        echo "First 8 chars: ${HOST}"
+        echo "Last char: ${HOST: -1}"
+        pnpm exec playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
