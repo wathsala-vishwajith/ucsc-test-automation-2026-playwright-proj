@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 // Load environment variables from .env file
-dotenv.config({ path: new URL('.env', import.meta.url).pathname });
+if(!process.env.HOST || !process.env.USERNAME || !process.env.PASSWORD) {
+  dotenv.config({ path: new URL('.env', import.meta.url).pathname });
+} 
 
 /**
  * Read environment variables from file.
